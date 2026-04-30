@@ -1,0 +1,22 @@
+{
+  "vehicle_type": [
+    "Economy",
+    "Premium"
+  ],
+  "time_of_booking": [
+    "Afternoon",
+    "Evening",
+    "Morning",
+    "Night"
+  ],
+  "location_category": [
+    "Rural",
+    "Suburban",
+    "Urban"
+  ],
+  "loyalty_status": [
+    "Gold",
+    "Regular",
+    "Silver"
+  ]
+}

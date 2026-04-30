@@ -1,0 +1,18 @@
+[
+  "Number_of_Riders",
+  "Number_of_Drivers",
+  "demand_supply_ratio",
+  "Expected_Ride_Duration",
+  "Distance_KM",
+  "vehicle_encoded",
+  "time_encoded",
+  "location_encoded",
+  "loyalty_encoded",
+  "is_peak",
+  "is_premium",
+  "demand_x_peak",
+  "duration_x_vehicle",
+  "distance_x_vehicle",
+  "Average_Ratings",
+  "Number_of_Past_Rides"
+]

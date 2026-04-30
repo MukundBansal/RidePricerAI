@@ -1,0 +1,9 @@
+{
+  "r2_train": 0.9838,
+  "r2_test": 0.9776,
+  "mae_inr": 32.08,
+  "rmse_inr": 55.13,
+  "training_samples": 35000,
+  "features": 16,
+  "best_iteration": 170
+}

@@ -1,0 +1,27 @@
+# Node
+node_modules/
+dist/
+.npm
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+*.egg-info/
+
+# Mac
+.DS_Store
+.AppleDouble
+
+# Model artifacts (large binary files)
+*.pkl
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
