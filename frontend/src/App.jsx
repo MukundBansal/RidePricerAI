@@ -38,24 +38,23 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden font-sans">
-      <MountainVistaParallax />
-      <div className="relative z-10">
+    <div className="relative min-h-screen overflow-x-hidden font-sans text-slate-900 bg-slate-50">
+      
+      <div className="relative w-full h-[80vh] sm:h-screen">
+        <MountainVistaParallax 
+          title={
+            <>
+              Ride<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-600">Pricer</span> AI
+            </>
+          } 
+          subtitle="Real-time surge pricing powered by XGBoost, live routing & demand economics"
+        />
+      </div>
+
+      <div className="relative z-10 bg-slate-50 min-h-screen pb-20">
         <Navbar metrics={metrics} />
         <MetricsBar metrics={metrics} />
         <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
-          <div className="text-center space-y-3 py-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-white/50 tracking-widest uppercase mb-2">
-              AI-Powered Dynamic Pricing
-            </div>
-            <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight leading-none">
-              Ride<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Pricer</span> AI
-            </h1>
-            <p className="text-white/40 text-lg max-w-xl mx-auto">
-              Real-time surge pricing powered by XGBoost, live routing & demand economics
-            </p>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             <div className="lg:col-span-2">
               <PredictorPanel

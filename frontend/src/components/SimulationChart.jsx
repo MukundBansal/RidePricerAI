@@ -18,13 +18,13 @@ export default function SimulationChart({ data }) {
   const maxPrice = Math.max(...filtered.map(s => s.price))
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-5 space-y-5">
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500/20 to-cyan-500/20 border border-white/10 flex items-center justify-center text-sm">📊</div>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-100 to-cyan-100 border border-violet-200 flex items-center justify-center text-sm">📊</div>
           <div>
-            <h3 className="text-white font-semibold text-sm">Price Simulation</h3>
-            <p className="text-white/30 text-xs">15km reference trip across time of day</p>
+            <h3 className="text-slate-900 font-semibold text-sm">Price Simulation</h3>
+            <p className="text-slate-500 text-xs">15km reference trip across time of day</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -34,8 +34,8 @@ export default function SimulationChart({ data }) {
               onClick={() => setSelected(cab)}
               className={`px-2.5 py-1 rounded-lg text-xs transition-all border ${
                 selected === cab
-                  ? 'border-white/20 bg-white/10 text-white'
-                  : 'border-white/5 bg-white/3 text-white/30 hover:text-white/60'
+                  ? 'border-slate-300/20 bg-slate-100 text-slate-900'
+                  : 'border-slate-200 bg-slate-50 text-slate-900/30 hover:text-slate-600'
               }`}
               style={selected === cab ? { borderColor: CAB_COLORS[cab] + '50', color: CAB_COLORS[cab] } : {}}
             >
@@ -51,7 +51,7 @@ export default function SimulationChart({ data }) {
           const color = CAB_COLORS[s.cab_type] || '#8b5cf6'
           return (
             <div key={i} className="flex-1 flex flex-col items-center gap-1 group">
-              <div className="text-white/40 text-xs group-hover:text-white transition-colors">₹{s.price}</div>
+              <div className="text-slate-500 text-xs group-hover:text-slate-900 transition-colors">₹{s.price}</div>
               <div
                 className="w-full rounded-t-lg transition-all duration-500 group-hover:opacity-100 opacity-70"
                 style={{
@@ -60,7 +60,7 @@ export default function SimulationChart({ data }) {
                   border: `1px solid ${color}40`,
                 }}
               />
-              <div className="text-white/25 text-xs">{s.time_label}</div>
+              <div className="text-slate-900/25 text-xs">{s.time_label}</div>
             </div>
           )
         })}

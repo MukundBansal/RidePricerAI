@@ -65,32 +65,32 @@ export default function LocationInput({ value, onChange, placeholder, icon }) {
   return (
     <div ref={wrapRef} className="relative">
       <div className="relative flex items-center">
-        <span className="absolute left-3 text-white/30 text-sm">{icon}</span>
+        <span className="absolute left-3 text-slate-900/30 text-sm">{icon}</span>
         <input
           type="text"
           value={query}
           onChange={handleChange}
           onFocus={() => suggestions.length > 0 && setOpen(true)}
           placeholder={placeholder}
-          className="w-full pl-9 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-500/50 focus:bg-white/8 transition-all"
+          className="w-full pl-9 pr-4 py-3 bg-slate-100 border border-slate-300/10 rounded-xl text-slate-900 text-sm placeholder-white/20 focus:outline-none focus:border-violet-500/50 focus:bg-slate-100 transition-all"
         />
         {loading && (
-          <span className="absolute right-3 w-3 h-3 border border-white/30 border-t-white/80 rounded-full animate-spin" />
+          <span className="absolute right-3 w-3 h-3 border border-slate-300/30 border-t-white/80 rounded-full animate-spin" />
         )}
       </div>
 
       {open && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-[#0d0d1a] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white border border-slate-300/10 rounded-xl overflow-hidden shadow-2xl">
           {suggestions.map((place, i) => {
             const { main, sub } = formatSuggestion(place)
             return (
               <button
                 key={i}
                 onClick={() => handleSelect(place)}
-                className="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors border-b border-white/5 last:border-0"
+                className="w-full px-4 py-3 text-left hover:bg-slate-100 transition-colors border-b border-slate-200 last:border-0"
               >
-                <div className="text-white text-sm font-medium truncate">{main}</div>
-                <div className="text-white/30 text-xs truncate mt-0.5">{sub}</div>
+                <div className="text-slate-900 text-sm font-medium truncate">{main}</div>
+                <div className="text-slate-500 text-xs truncate mt-0.5">{sub}</div>
               </button>
             )
           })}

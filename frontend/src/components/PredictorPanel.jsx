@@ -21,10 +21,10 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
   const update = (key, val) => setFormData(prev => ({ ...prev, [key]: val }))
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-5 space-y-5">
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 space-y-5">
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500/20 to-cyan-500/20 border border-white/10 flex items-center justify-center text-sm">🗺️</div>
-        <h2 className="text-white font-semibold">Trip Details</h2>
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-100 to-cyan-100 border border-violet-200 flex items-center justify-center text-sm">🗺️</div>
+        <h2 className="text-slate-900 font-semibold">Trip Details</h2>
       </div>
 
       {/* Locations */}
@@ -36,9 +36,9 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
           icon="📍"
         />
         <div className="flex items-center gap-2">
-          <div className="flex-1 h-px bg-white/5" />
-          <div className="w-6 h-6 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/20 text-xs">↕</div>
-          <div className="flex-1 h-px bg-white/5" />
+          <div className="flex-1 h-px bg-slate-100" />
+          <div className="w-6 h-6 rounded-full border border-slate-300/10 bg-slate-100 flex items-center justify-center text-slate-400 text-xs">↕</div>
+          <div className="flex-1 h-px bg-slate-100" />
         </div>
         <LocationInput
           value={formData.dropoff_location}
@@ -50,7 +50,7 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
 
       {/* Cab Type */}
       <div className="space-y-2">
-        <label className="text-white/30 text-xs uppercase tracking-wider">Service Type</label>
+        <label className="text-slate-500 text-xs uppercase tracking-wider">Service Type</label>
         <div className="grid grid-cols-2 gap-2">
           {CAB_TYPES.map(cab => (
             <button
@@ -58,8 +58,8 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
               onClick={() => update('cab_type', cab.id)}
               className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm transition-all ${
                 formData.cab_type === cab.id
-                  ? 'border-violet-500/60 bg-violet-500/15 text-white'
-                  : 'border-white/8 bg-white/3 text-white/50 hover:bg-white/6 hover:text-white/80'
+                  ? 'border-violet-500/60 bg-violet-500/15 text-slate-900'
+                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:bg-white/6 hover:text-slate-900/80'
               }`}
             >
               <span className="text-base">{cab.icon}</span>
@@ -67,7 +67,7 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
                 <div className="text-xs font-medium leading-tight">{cab.label}</div>
                 <div className={`text-[10px] leading-tight ${
                   cab.tier === 'Premium' ? 'text-amber-400/60' : 
-                  cab.tier === 'Bike' ? 'text-emerald-400/60' : 'text-white/25'
+                  cab.tier === 'Bike' ? 'text-emerald-400/60' : 'text-slate-900/25'
                 }`}>{cab.tier}</div>
               </div>
             </button>
@@ -77,7 +77,7 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
 
       {/* Time Simulator */}
       <div className="space-y-2">
-        <label className="text-white/30 text-xs uppercase tracking-wider">Time Simulator</label>
+        <label className="text-slate-500 text-xs uppercase tracking-wider">Time Simulator</label>
         <div className="flex flex-wrap gap-2">
           {HOURS.map(h => (
             <button
@@ -86,7 +86,7 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
               className={`px-3 py-1.5 rounded-lg text-xs transition-all border ${
                 formData.simulated_hour === h.value
                   ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-300'
-                  : 'border-white/8 bg-white/3 text-white/40 hover:text-white/70'
+                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:text-slate-700'
               }`}
             >
               {h.label}
@@ -101,13 +101,13 @@ export default function PredictorPanel({ formData, setFormData, onPredict, loadi
         disabled={loading || !formData.pickup_location || !formData.dropoff_location}
         className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all relative overflow-hidden ${
           loading || !formData.pickup_location || !formData.dropoff_location
-            ? 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
-            : 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:from-violet-500 hover:to-cyan-500 shadow-lg shadow-violet-500/20'
+            ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
+            : 'bg-gradient-to-r from-violet-600 to-cyan-600 text-slate-900 hover:from-violet-500 hover:to-cyan-500 shadow-lg shadow-violet-500/20'
         }`}
       >
         {loading ? (
           <span className="flex items-center justify-center gap-2">
-            <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+            <span className="w-4 h-4 border-2 border-slate-300/20 border-t-white rounded-full animate-spin" />
             Calculating...
           </span>
         ) : (
