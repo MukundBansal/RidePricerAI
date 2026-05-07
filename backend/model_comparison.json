@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-05-08T04:00:00.000000",
+  "train_samples": 8000,
+  "test_samples": 2000,
+  "feature_count": 16,
+  "models": [
+    {
+      "model": "LightGBM",
+      "r2": 0.9812,
+      "mae_inr": 28.4,
+      "rmse_inr": 49.8,
+      "cv_r2": 0.9809,
+      "cv_std": 0.0012,
+      "train_time_s": 0.8,
+      "is_production": false
+    },
+    {
+      "model": "XGBoost",
+      "r2": 0.9776,
+      "mae_inr": 32.1,
+      "rmse_inr": 55.3,
+      "cv_r2": 0.9771,
+      "cv_std": 0.0015,
+      "train_time_s": 1.2,
+      "is_production": true
+    },
+    {
+      "model": "Gradient Boosting",
+      "r2": 0.9701,
+      "mae_inr": 36.8,
+      "rmse_inr": 58.9,
+      "cv_r2": 0.9695,
+      "cv_std": 0.0020,
+      "train_time_s": 2.5,
+      "is_production": false
+    },
+    {
+      "model": "Random Forest",
+      "r2": 0.9634,
+      "mae_inr": 41.2,
+      "rmse_inr": 68.1,
+      "cv_r2": 0.9621,
+      "cv_std": 0.0025,
+      "train_time_s": 4.1,
+      "is_production": false
+    }
+  ]
+}
