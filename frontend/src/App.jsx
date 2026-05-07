@@ -5,6 +5,7 @@ import PredictorPanel from './components/PredictorPanel'
 import ResultPanel from './components/ResultPanel'
 import MetricsBar from './components/MetricsBar'
 import SimulationChart from './components/SimulationChart'
+import { ModelComparisonTable } from './components/ui/ModelComparisonTable'
 import { predictPrice, getMetrics, getSimulation } from './api'
 
 export default function App() {
@@ -72,6 +73,9 @@ export default function App() {
           </div>
 
           {simulation && <SimulationChart data={simulation} />}
+
+          {/* Model Comparison Table */}
+          <ModelComparisonTable />
         </main>
       </div>
     </div>
