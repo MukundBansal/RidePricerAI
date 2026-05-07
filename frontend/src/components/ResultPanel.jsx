@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { RouteMapCard } from './ui/RouteMapCard'
 import { PriceExplainer } from './ui/PriceExplainer'
 import { WeatherBadge } from './ui/WeatherBadge'
+import { AIInsightsPanel } from './ui/AIInsightsPanel'
 
 function AnimatedNumber({ value, duration = 1200 }) {
   const [display, setDisplay] = useState(0)
@@ -143,6 +144,9 @@ export default function ResultPanel({ result, loading, formData }) {
         durationMin={trip.duration_mins}
         surgeMultiplier={trip.surge_multiplier}
       />
+
+      {/* AI Insights */}
+      {d.insights && <AIInsightsPanel insights={d.insights} />}
 
       {/* SHAP Explainability */}
       <PriceExplainer
