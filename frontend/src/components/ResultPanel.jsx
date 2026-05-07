@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { RouteMapCard } from './ui/RouteMapCard'
 import { PriceExplainer } from './ui/PriceExplainer'
+import { WeatherBadge } from './ui/WeatherBadge'
 
 function AnimatedNumber({ value, duration = 1200 }) {
   const [display, setDisplay] = useState(0)
@@ -91,6 +92,8 @@ export default function ResultPanel({ result, loading, formData }) {
           <span className={`w-1.5 h-1.5 rounded-full ${isHigh ? 'bg-red-400' : isMod ? 'bg-amber-400' : 'bg-emerald-400'} animate-pulse`} />
           {d.demand_level} Demand · {trip.surge_multiplier}x Surge
         </div>
+        {/* Compact weather pill */}
+        {d.weather && <div className="mt-2"><WeatherBadge weather={d.weather} variant="compact" /></div>}
       </div>
 
       {/* Trip stats */}
@@ -120,6 +123,9 @@ export default function ResultPanel({ result, loading, formData }) {
           accent={d.revenue_lift_percentage > 0 ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 bg-slate-50"}
         />
       </div>
+
+      {/* Weather card (full variant) */}
+      {d.weather && <WeatherBadge weather={d.weather} variant="full" />}
 
       {/* Route info */}
       <RouteMapCard
