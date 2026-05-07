@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { RouteMapCard } from './ui/RouteMapCard'
+import { PriceExplainer } from './ui/PriceExplainer'
 
 function AnimatedNumber({ value, duration = 1200 }) {
   const [display, setDisplay] = useState(0)
@@ -135,6 +136,19 @@ export default function ResultPanel({ result, loading, formData }) {
         distanceKm={trip.distance_km}
         durationMin={trip.duration_mins}
         surgeMultiplier={trip.surge_multiplier}
+      />
+
+      {/* SHAP Explainability */}
+      <PriceExplainer
+        requestPayload={{
+          distance_km: trip.distance_km,
+          duration_mins: trip.duration_mins,
+          riders: trip.active_riders,
+          drivers: trip.active_drivers,
+          surge_multiplier: trip.surge_multiplier,
+          cab_type: formData.cab_type,
+          hour: new Date().getHours(),
+        }}
       />
     </div>
   )
