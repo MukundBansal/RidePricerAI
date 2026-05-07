@@ -40,6 +40,9 @@ export default function App() {
   return (
     <div className="relative min-h-screen overflow-x-hidden font-sans text-slate-900 bg-slate-50">
       
+      {/* Navbar positioned at the very top of the homepage */}
+      <Navbar metrics={metrics} />
+
       <div className="relative w-full h-[80vh] sm:h-screen">
         <MountainVistaParallax 
           title={
@@ -52,9 +55,8 @@ export default function App() {
       </div>
 
       <div className="relative z-10 bg-slate-50 min-h-screen pb-20">
-        <Navbar metrics={metrics} />
         <MetricsBar metrics={metrics} />
-        <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+        <main className="max-w-6xl mx-auto px-4 py-10 space-y-8 mt-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             <div className="lg:col-span-2">
               <PredictorPanel
