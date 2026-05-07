@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import AuroraBackground from './components/AuroraBackground'
+import MountainVistaParallax from './components/ui/mountain-vista-bg'
 import Navbar from './components/Navbar'
 import PredictorPanel from './components/PredictorPanel'
 import ResultPanel from './components/ResultPanel'
@@ -19,8 +19,8 @@ export default function App() {
   })
 
   useEffect(() => {
-    getMetrics().then(setMetrics).catch(() => {})
-    getSimulation().then(setSimulation).catch(() => {})
+    getMetrics().then(setMetrics).catch(() => { })
+    getSimulation().then(setSimulation).catch(() => { })
   }, [])
 
   const handlePredict = async () => {
@@ -39,7 +39,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden font-sans">
-      <AuroraBackground />
+      <MountainVistaParallax />
       <div className="relative z-10">
         <Navbar metrics={metrics} />
         <MetricsBar metrics={metrics} />
