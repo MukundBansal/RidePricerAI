@@ -90,12 +90,12 @@ export function ModelComparisonTable() {
     </th>
   )
 
-  const isBest = (model: ModelResult, col: keyof typeof best) =>
-    best && (model[col] as number) === best[col]
+  const isBest = (model: ModelResult, col: keyof ModelResult) =>
+    best && col in best && (model[col] as number) === (best as any)[col]
 
   const Cell = ({
     value, model, col, fmt,
-  }: { value: number; model: ModelResult; col: keyof typeof best; fmt: (v: number) => string }) => (
+  }: { value: number; model: ModelResult; col: keyof ModelResult; fmt: (v: number) => string }) => (
     <td className="text-right pr-4 py-3">
       <span
         className="text-[13px] font-semibold tabular-nums px-2 py-0.5 rounded-md"
