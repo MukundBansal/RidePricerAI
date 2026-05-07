@@ -13,6 +13,7 @@ import shap
 import config
 from utils import get_time_category, fetch_route_distance, calculate_surge_multiplier
 from weather_service import get_weather_by_coords, weather_to_dict
+from insights_engine import generate_insights
 
 app = FastAPI(title="RidePricer AI API v2")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -221,6 +222,22 @@ async def predict_price(ride: RideRequest):
                 "dropoff_lng": dlng
             },
             "weather": weather_to_dict(weather),
+            "insights": generate_insights(
+                surge_multiplier=float(surge_multiplier),
+                weather_boost=weather_boost,
+                weather_condition=weather.condition if weather else "Clear",
+                riders=int(riders),
+                drivers=int(drivers),
+                distance_km=distance_km,
+                duration_mins=duration_mins,
+                hour=hour,
+                time_category=time_cat,
+                cab_type=arashnic_cab,
+                final_price_inr=final_price_inr,
+                revenue_lift_pct=lift,
+                loyalty_status=ride.loyalty_status,
+                avg_rating=ride.average_rating,
+            ),
         }
     }
 
