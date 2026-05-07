@@ -424,3 +424,28 @@ def simulate_prices():
                 "demand_level": "High" if is_peak else "Normal"
             })
     return {"scenarios": scenarios}
+
+import os
+
+_comparison_cache: dict = {}
+
+def _load_comparison() -> dict:
+    global _comparison_cache
+    if _comparison_cache:
+        return _comparison_cache
+    path = os.path.join(os.path.dirname(__file__), "model_comparison.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            _comparison_cache = json.load(f)
+    else:
+        _comparison_cache = {"models": [], "error": "Run train_compare.py first"}
+    return _comparison_cache
+
+
+@app.get("/model-comparison")
+def get_model_comparison():
+    """
+    Returns benchmark metrics for all trained models.
+    Consumed by the ModelComparisonTable React component.
+    """
+    return _load_comparison()

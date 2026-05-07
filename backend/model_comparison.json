@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-08T04:00:00.000000",
+  "generated_at": "2026-05-08T04:36:03.294001",
   "train_samples": 8000,
   "test_samples": 2000,
   "feature_count": 16,
@@ -30,7 +30,7 @@
       "mae_inr": 36.8,
       "rmse_inr": 58.9,
       "cv_r2": 0.9695,
-      "cv_std": 0.0020,
+      "cv_std": 0.002,
       "train_time_s": 2.5,
       "is_production": false
     },
