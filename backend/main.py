@@ -12,6 +12,7 @@ import shap
 
 import config
 from utils import get_time_category, fetch_route_distance, calculate_surge_multiplier
+from weather_service import get_weather_by_coords, weather_to_dict
 
 app = FastAPI(title="RidePricer AI API v2")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -137,7 +138,7 @@ def get_options():
     }
 
 @app.post("/predict")
-def predict_price(ride: RideRequest):
+async def predict_price(ride: RideRequest):
     logger.info(f"REQUEST: pickup='{ride.pickup_location}' dropoff='{ride.dropoff_location}'")
     hour = ride.simulated_hour if ride.simulated_hour is not None else datetime.now().hour
     time_cat = get_time_category(hour)
@@ -155,6 +156,12 @@ def predict_price(ride: RideRequest):
         drivers = np.random.randint(*config.SIM_OFFPEAK_DRIVERS)
 
     demand_supply_ratio, surge_multiplier = calculate_surge_multiplier(riders, drivers)
+
+    # ── Weather surge ────────────────────────────────────────────────────────
+    weather = await get_weather_by_coords(plat, plng)
+    weather_boost = weather.surge_boost if weather else 0.0
+    surge_multiplier = round(surge_multiplier + weather_boost, 2)
+    # ─────────────────────────────────────────────────────────────────────────
 
     arashnic_cab = config.CAB_TRANSLATION.get(ride.cab_type, config.DEFAULT_CAB_TYPE)
     vehicle_encoded = vehicle_map.get(arashnic_cab, 0)
@@ -185,7 +192,11 @@ def predict_price(ride: RideRequest):
     lift = (surge_fee / base_fare_inr * 100) if base_fare_inr > 0 else 0
 
     prediction_id = f"req_{uuid.uuid4().hex[:12]}"
-    logger.info(f"[{prediction_id}] {ride.cab_type} | {distance_km:.1f}km | {time_cat} | INR {final_price_inr:.0f}")
+    logger.info(
+        f"[{prediction_id}] {ride.cab_type} | {distance_km:.1f}km | "
+        f"{time_cat} | weather={weather.condition if weather else 'N/A'} "
+        f"(+{weather_boost:.0%}) | INR {final_price_inr:.0f}"
+    )
 
     return {
         "success": True,
@@ -202,12 +213,14 @@ def predict_price(ride: RideRequest):
                 "active_riders": int(riders),
                 "active_drivers": int(drivers),
                 "surge_multiplier": float(surge_multiplier),
+                "weather_boost": round(weather_boost, 2),
                 "time_category": time_cat,
                 "pickup_lat": plat,
                 "pickup_lng": plng,
                 "dropoff_lat": dlat,
                 "dropoff_lng": dlng
-            }
+            },
+            "weather": weather_to_dict(weather),
         }
     }
 
