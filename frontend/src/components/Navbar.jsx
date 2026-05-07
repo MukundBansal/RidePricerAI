@@ -5,7 +5,6 @@ export default function Navbar({ metrics }) {
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-xs text-white shadow-sm">⚡</div>
           <span className="text-slate-900 font-bold tracking-tight">RidePricer AI</span>
-          <span className="text-slate-500 text-xs ml-1 font-medium bg-slate-200/50 px-1.5 rounded-md">v2</span>
         </div>
         <div className="flex items-center gap-4">
           {metrics && (
