@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { RouteMapCard } from './ui/RouteMapCard'
 
 function AnimatedNumber({ value, duration = 1200 }) {
   const [display, setDisplay] = useState(0)
@@ -120,20 +121,21 @@ export default function ResultPanel({ result, loading, formData }) {
       </div>
 
       {/* Route info */}
-      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-2">
-        <div className="text-slate-500 text-xs uppercase tracking-wider">Route</div>
-        <div className="flex items-start gap-3">
-          <div className="flex flex-col items-center gap-1 mt-1">
-            <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <div className="w-px h-6 bg-slate-100" />
-            <div className="w-2 h-2 rounded-full bg-violet-400" />
-          </div>
-          <div className="space-y-2 flex-1 min-w-0">
-            <div className="text-slate-700 text-xs truncate">{formData.pickup_location || '—'}</div>
-            <div className="text-slate-700 text-xs truncate">{formData.dropoff_location || '—'}</div>
-          </div>
-        </div>
-      </div>
+      <RouteMapCard
+        origin={{ 
+          name: formData.pickup_location || 'Origin',
+          lat: trip.pickup_lat || 28.5562,
+          lng: trip.pickup_lng || 77.1000
+        }}
+        destination={{ 
+          name: formData.dropoff_location || 'Destination',
+          lat: trip.dropoff_lat || 30.7046,
+          lng: trip.dropoff_lng || 76.8013
+        }}
+        distanceKm={trip.distance_km}
+        durationMin={trip.duration_mins}
+        surgeMultiplier={trip.surge_multiplier}
+      />
     </div>
   )
 }

@@ -91,7 +91,7 @@ def predict_price(ride: RideRequest):
     hour = ride.simulated_hour if ride.simulated_hour is not None else datetime.now().hour
     time_cat = get_time_category(hour)
 
-    duration_mins, distance_km = get_route_data(ride.pickup_location, ride.dropoff_location)
+    duration_mins, distance_km, plat, plng, dlat, dlng = get_route_data(ride.pickup_location, ride.dropoff_location)
 
     np.random.seed(None)
     is_peak_time = time_cat in config.PEAK_HOURS_CATS
@@ -151,7 +151,11 @@ def predict_price(ride: RideRequest):
                 "active_riders": int(riders),
                 "active_drivers": int(drivers),
                 "surge_multiplier": float(surge_multiplier),
-                "time_category": time_cat
+                "time_category": time_cat,
+                "pickup_lat": plat,
+                "pickup_lng": plng,
+                "dropoff_lat": dlat,
+                "dropoff_lng": dlng
             }
         }
     }

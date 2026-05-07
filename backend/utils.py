@@ -59,12 +59,12 @@ def fetch_route_distance(pickup, dropoff):
             osrm_km = straight_km * 1.3
             osrm_mins = osrm_km * 2.2
 
-        return (osrm_mins, osrm_km)
+        return (osrm_mins, osrm_km, lat1, lon1, lat2, lon2)
 
     except Exception as e:
         logger.warning(f"Route fetch failed: {e}")
         fallback_km = ((len(pickup) * 2.5) + (len(dropoff) * 1.5)) % 40 + 3.0
-        return (fallback_km * 2.5, fallback_km)
+        return (fallback_km * 2.5, fallback_km, 28.6139, 77.2090, 28.5355, 77.3910)
 
 def calculate_surge_multiplier(riders, drivers):
     ratio = round(riders / max(drivers, 1), 2)
