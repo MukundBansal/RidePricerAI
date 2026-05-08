@@ -3,6 +3,7 @@ import { RouteMapCard } from './ui/RouteMapCard'
 import { PriceExplainer } from './ui/PriceExplainer'
 import { WeatherBadge } from './ui/WeatherBadge'
 import { AIInsightsPanel } from './ui/AIInsightsPanel'
+import { LiveMarketPanel } from './ui/LiveMarketPanel'
 
 function AnimatedNumber({ value, duration = 1200 }) {
   const [display, setDisplay] = useState(0)
@@ -97,33 +98,21 @@ export default function ResultPanel({ result, loading, formData }) {
         {d.weather && <div className="mt-2"><WeatherBadge weather={d.weather} variant="compact" /></div>}
       </div>
 
-      {/* Trip stats */}
-      <div className="grid grid-cols-2 gap-3">
-        <StatCard
-          label="Distance"
-          value={`${trip.distance_km} km`}
-          sub={`~${trip.duration_mins} min`}
-          accent="border-slate-200 bg-slate-50"
-        />
-        <StatCard
-          label="Market"
-          value={`${trip.active_riders} riders`}
-          sub={`${trip.active_drivers} drivers available`}
-          accent="border-slate-200 bg-slate-50"
-        />
-        <StatCard
-          label="Time"
-          value={trip.time_category}
-          sub={`Hour: ${new Date().getHours()}:00`}
-          accent="border-slate-200 bg-slate-50"
-        />
-        <StatCard
-          label="Revenue Lift"
-          value={`+${d.revenue_lift_percentage}%`}
-          sub="vs flat-rate model"
-          accent={d.revenue_lift_percentage > 0 ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 bg-slate-50"}
-        />
-      </div>
+      {/* Trip stats & Live Market Feed */}
+      <LiveMarketPanel
+        wsUrl="ws://localhost:8000/ws/market"
+        initialData={{
+          riders:                   trip.active_riders,
+          drivers:                  trip.active_drivers,
+          surge_multiplier:         trip.surge_multiplier,
+          demand_level:             d.demand_level,
+          time_category:            trip.time_category,
+          distance_km:              trip.distance_km,
+          duration_mins:            trip.duration_mins,
+          revenue_lift_percentage:  d.revenue_lift_percentage,
+          final_price_inr:          d.final_price_inr,
+        }}
+      />
 
       {/* Weather card (full variant) */}
       {d.weather && <WeatherBadge weather={d.weather} variant="full" />}
