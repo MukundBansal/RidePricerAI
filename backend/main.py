@@ -1,9 +1,12 @@
 import uuid
 import logging
 from datetime import datetime
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+import asyncio
+from websocket_manager import manager
+from live_engine import live_market_broadcaster
 import xgboost as xgb
 import numpy as np
 import pickle
@@ -17,6 +20,11 @@ from insights_engine import generate_insights
 
 app = FastAPI(title="RidePricer AI API v2")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(live_market_broadcaster())
+    logger.info("Live market broadcaster started")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 logger = logging.getLogger("RidePricer-Engine")
@@ -198,6 +206,20 @@ async def predict_price(ride: RideRequest):
         f"{time_cat} | weather={weather.condition if weather else 'N/A'} "
         f"(+{weather_boost:.0%}) | INR {final_price_inr:.0f}"
     )
+
+    # Broadcast updated price to all live WS clients
+    asyncio.create_task(manager.broadcast({
+        "type":             "price_update",
+        "timestamp":        datetime.now().isoformat(),
+        "prediction_id":    prediction_id,
+        "final_price_inr":  round(final_price_inr),
+        "surge_multiplier": float(surge_multiplier),
+        "demand_level":     "High" if surge_multiplier > 1.3 else ("Moderate" if surge_multiplier > 1.0 else "Normal"),
+        "riders":           int(riders),
+        "drivers":          int(drivers),
+        "weather_condition": weather.condition if weather else "Clear",
+        "weather_boost":    round(weather_boost, 2),
+    }))
 
     return {
         "success": True,
@@ -449,3 +471,37 @@ def get_model_comparison():
     Consumed by the ModelComparisonTable React component.
     """
     return _load_comparison()
+
+@app.websocket("/ws/market")
+async def market_websocket(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        hour = datetime.now().hour
+        time_cat = get_time_category(hour)
+        is_peak = time_cat in config.PEAK_HOURS_CATS
+        riders  = (config.SIM_PEAK_RIDERS[0]  + config.SIM_PEAK_RIDERS[1])  // 2 if is_peak else (config.SIM_OFFPEAK_RIDERS[0]  + config.SIM_OFFPEAK_RIDERS[1])  // 2
+        drivers = (config.SIM_PEAK_DRIVERS[0] + config.SIM_PEAK_DRIVERS[1]) // 2 if is_peak else (config.SIM_OFFPEAK_DRIVERS[0] + config.SIM_OFFPEAK_DRIVERS[1]) // 2
+        ratio, surge = calculate_surge_multiplier(riders, drivers)
+
+        await websocket.send_json({
+            "type": "market_update", "timestamp": datetime.now().isoformat(),
+            "riders": riders, "drivers": drivers,
+            "demand_supply_ratio": round(ratio, 2),
+            "surge_multiplier": round(surge, 2),
+            "demand_level": "High" if surge > 1.3 else ("Moderate" if surge > 1.0 else "Normal"),
+            "time_category": time_cat, "is_peak": is_peak,
+        })
+
+        while True:
+            try:
+                data = await asyncio.wait_for(websocket.receive_text(), timeout=30)
+                if data == "ping":
+                    await websocket.send_text("pong")
+            except asyncio.TimeoutError:
+                await websocket.send_json({"type": "ping"})
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+    except Exception as e:
+        logger.error(f"WS error: {e}")
+        manager.disconnect(websocket)
