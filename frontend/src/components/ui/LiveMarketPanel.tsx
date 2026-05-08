@@ -9,10 +9,12 @@ function AnimatedNumber({
   value,
   format = (v: number) => String(Math.round(v)),
   className = "",
+  style,
 }: {
   value: number
   format?: (v: number) => string
   className?: string
+  style?: React.CSSProperties
 }) {
   const [display, setDisplay] = useState(value)
   const rafRef = useRef<number>(0)
@@ -39,7 +41,7 @@ function AnimatedNumber({
     return () => cancelAnimationFrame(rafRef.current)
   }, [value])
 
-  return <span className={className}>{format(display)}</span>
+  return <span className={className} style={style}>{format(display)}</span>
 }
 
 // ── Pulse dot — blinks on every new tick ────────────────────────────────────
@@ -165,10 +167,10 @@ export function LiveMarketPanel({ initialData, wsUrl }: LiveMarketPanelProps) {
   const { market, connected, lastTick } = useMarketSocket({ url: wsUrl })
 
   // Merge: WS data wins over initial snapshot
-  const data: Partial<MarketState> & { revenue_lift_percentage?: number } = {
+  const data = {
     ...(initialData ?? {}),
     ...(market ?? {}),
-  }
+  } as Partial<MarketState> & { revenue_lift_percentage?: number }
 
   // Track flash on each new tick
   const [flash, setFlash] = useState(false)
