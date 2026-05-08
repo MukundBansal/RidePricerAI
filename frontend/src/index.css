@@ -130,3 +130,91 @@ h3 {
     background-position: 2000px 100%;
   }
 }
+/* ═══════════════════════════════════════════════════════════════
+   RidePricer AI — Design System
+   Add these to your globals.css (or tailwind.config.js theme)
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand */
+  --rp-navy:        #0B1120;
+  --rp-navy-800:    #111827;
+  --rp-navy-700:    #1F2937;
+  --rp-accent:      #6366F1;
+  --rp-accent-light:#818CF8;
+  --rp-green:       #10B981;
+  --rp-green-light: #34D399;
+  --rp-amber:       #F59E0B;
+  --rp-red:         #EF4444;
+
+  /* Surfaces */
+  --rp-bg:          #F8FAFC;
+  --rp-card:        #FFFFFF;
+  --rp-card-border: #E8ECF0;
+  --rp-card-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+
+  /* Type */
+  --rp-font:        'DM Sans', system-ui, sans-serif;
+  --rp-mono:        'DM Mono', monospace;
+  --rp-text-1:      #0F172A;
+  --rp-text-2:      #475569;
+  --rp-text-3:      #94A3B8;
+}
+
+body {
+  font-family: var(--rp-font);
+  background: var(--rp-bg);
+  color: var(--rp-text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility classes used across components */
+.rp-card {
+  background: var(--rp-card);
+  border: 1px solid var(--rp-card-border);
+  border-radius: 16px;
+  box-shadow: var(--rp-card-shadow);
+}
+
+.rp-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rp-text-3);
+}
+
+.rp-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--rp-text-1);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.rp-sub {
+  font-size: 12px;
+  color: var(--rp-text-3);
+  margin-top: 2px;
+}
+
+/* Animated number flash */
+@keyframes rp-flash {
+  0%   { background: rgba(16,185,129,0.08); }
+  100% { background: transparent; }
+}
+.rp-flash { animation: rp-flash 0.7s ease-out forwards; }
+
+/* Shimmer loading skeleton */
+@keyframes rp-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.rp-skeleton {
+  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background-size: 800px 100%;
+  animation: rp-shimmer 1.4s infinite;
+  border-radius: 6px;
+}
