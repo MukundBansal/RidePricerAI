@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from "react"
 import { AnimatePresence, motion } from "motion/react"
 
 interface Stop {
-  name: string
+  name?: string
   sub?: string
-  lat: number
-  lng: number
+  lat?: number
+  lng?: number
 }
 
 interface RouteMapCardProps {
@@ -137,6 +137,8 @@ export function RouteMapCard({
   const [isExpanded, setIsExpanded]     = useState(false)
   const [routeLoading, setRouteLoading] = useState(false)
   const [heatVisible, setHeatVisible]   = useState(true)
+
+  if (!origin?.lat || !destination?.lat) return null;
 
   const mapRef         = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<any>(null)

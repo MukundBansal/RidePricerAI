@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
+import LocationInput from '../LocationInput'
 
 const CAB_OPTIONS = [
   { id: "Uber Go",       emoji: "🚗", tier: "Economy",  color: "#6366F1" },
@@ -62,56 +63,27 @@ export function TripInputPanel({
       <div style={{ padding: "20px 22px" }}>
         {/* Route inputs */}
         <div style={{ marginBottom: 20 }}>
-          <div style={{ position: "relative", marginBottom: 8 }}>
-            <div style={{
-              position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
-              width: 8, height: 8, borderRadius: "50%", background: "#10B981",
-              boxShadow: "0 0 0 3px rgba(16,185,129,0.15)",
-            }} />
-            <input
-              value={pickup}
-              onChange={e => onPickupChange(e.target.value)}
-              placeholder="Pickup location"
-              style={{
-                width: "100%", padding: "11px 12px 11px 30px",
-                fontSize: 13, fontFamily: "var(--rp-font)",
-                border: "1px solid var(--rp-card-border)",
-                borderRadius: 10, outline: "none", background: "#F8FAFC",
-                color: "var(--rp-text-1)", transition: "border-color 0.15s",
-              }}
-              onFocus={e => e.target.style.borderColor = "#6366F1"}
-              onBlur={e => e.target.style.borderColor = "var(--rp-card-border)"}
-            />
-          </div>
+          <LocationInput
+            value={pickup}
+            onChange={onPickupChange}
+            placeholder="Pickup location"
+            icon="📍"
+          />
 
           {/* Connector */}
-          <div style={{ display: "flex", alignItems: "center", padding: "0 16px", marginBottom: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", padding: "0 16px", margin: "8px 0" }}>
             <div style={{ width: 1, height: 18, background: "#E2E8F0", margin: "0 3px" }} />
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="2" style={{ margin: "0 4px" }}>
               <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
             </svg>
           </div>
 
-          <div style={{ position: "relative" }}>
-            <div style={{
-              position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
-              width: 8, height: 8, borderRadius: "50%", background: "#EF4444",
-            }} />
-            <input
-              value={dropoff}
-              onChange={e => onDropoffChange(e.target.value)}
-              placeholder="Drop-off location"
-              style={{
-                width: "100%", padding: "11px 12px 11px 30px",
-                fontSize: 13, fontFamily: "var(--rp-font)",
-                border: "1px solid var(--rp-card-border)",
-                borderRadius: 10, outline: "none", background: "#F8FAFC",
-                color: "var(--rp-text-1)", transition: "border-color 0.15s",
-              }}
-              onFocus={e => e.target.style.borderColor = "#6366F1"}
-              onBlur={e => e.target.style.borderColor = "var(--rp-card-border)"}
-            />
-          </div>
+          <LocationInput
+            value={dropoff}
+            onChange={onDropoffChange}
+            placeholder="Drop-off location"
+            icon="🏁"
+          />
         </div>
 
         {/* Service type */}
