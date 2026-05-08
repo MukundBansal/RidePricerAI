@@ -143,6 +143,8 @@ export default function ResultPanel({ result, loading, formData }) {
         distanceKm={trip.distance_km}
         durationMin={trip.duration_mins}
         surgeMultiplier={trip.surge_multiplier}
+        activeRiders={trip.active_riders}
+        activeDrivers={trip.active_drivers}
       />
 
       {/* AI Insights */}
