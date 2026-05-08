@@ -19,6 +19,16 @@ export async function predictPrice(formData) {
   return res.json()
 }
 
+export async function explainPrice(payload) {
+  const res = await fetch(`${BASE}/explain`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error('Explain failed')
+  return res.json()
+}
+
 export async function getMetrics() {
   const res = await fetch(`${BASE}/metrics`)
   if (!res.ok) throw new Error('Metrics failed')
