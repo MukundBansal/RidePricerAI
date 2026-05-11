@@ -15,7 +15,7 @@ import { WeatherBadge } from "./components/ui/WeatherBadge"
 import { AIInsightsPanel } from "./components/ui/AIInsightsPanel"
 import { ModelComparisonTable } from "./components/ui/ModelComparisonTable"
 
-const WS_URL = import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws/market";
+const WS_BASE_URL = import.meta.env.VITE_WS_URL || "ws://localhost:8000";
 
 export default function App() {
   const [result, setResult] = useState(null)
@@ -32,7 +32,7 @@ export default function App() {
   const [isExplaining, setIsExplaining] = useState(false)
 
   // Use the market socket
-  const { market, connected: wsConnected, lastTick } = useMarketSocket({ url: WS_URL })
+  const { market, connected: wsConnected, lastTick } = useMarketSocket({ url: `${WS_BASE_URL}/ws/market` })
   
   // Track flash on each new tick
   const [wsFlash, setWsFlash] = useState(false)

@@ -100,7 +100,7 @@ export default function ResultPanel({ result, loading, formData }) {
 
       {/* Trip stats & Live Market Feed */}
       <LiveMarketPanel
-        wsUrl={import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws/market"}
+        wsUrl={`${import.meta.env.VITE_WS_URL || "ws://localhost:8000"}/ws/market`}
         initialData={{
           riders:                   trip.active_riders,
           drivers:                  trip.active_drivers,
