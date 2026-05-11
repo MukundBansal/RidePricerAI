@@ -25,7 +25,7 @@ interface UseMarketSocketOptions {
 }
 
 export function useMarketSocket({
-  url = "ws://localhost:8000/ws/market",
+  url = import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws/market",
   pingInterval = 20_000,
   reconnectDelay = 3_000,
 }: UseMarketSocketOptions = {}) {

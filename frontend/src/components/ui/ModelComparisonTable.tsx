@@ -44,7 +44,7 @@ export function ModelComparisonTable() {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc")
 
   useEffect(() => {
-    fetch("http://localhost:8000/model-comparison")
+    fetch(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/model-comparison`)
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false) })
       .catch(() => { setError("Could not load model data"); setLoading(false) })
