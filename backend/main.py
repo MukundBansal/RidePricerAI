@@ -19,7 +19,12 @@ from weather_service import get_weather_by_coords, weather_to_dict
 from insights_engine import generate_insights
 
 app = FastAPI(title="RidePricer AI API v2")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # This allows any frontend to talk to your backend
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def startup_event():
