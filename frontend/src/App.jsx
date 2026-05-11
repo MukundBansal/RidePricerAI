@@ -83,6 +83,7 @@ export default function App() {
           duration_mins: trip.duration_mins,
           riders: trip.active_riders,
           drivers: trip.active_drivers,
+          surge_multiplier: trip.surge_multiplier,
           location_category: "Urban",
           loyalty_status: "Silver",
           average_rating: 4.5,
