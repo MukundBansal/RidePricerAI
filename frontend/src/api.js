@@ -1,4 +1,5 @@
-const BASE = 'http://localhost:8000'
+// ✅ This tells the app: "Use the Vercel variable if it exists, otherwise use localhost"
+const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export async function predictPrice(formData) {
   const body = {
