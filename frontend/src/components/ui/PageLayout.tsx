@@ -70,13 +70,20 @@ export function ModelStatsBar({
     <div style={{
       background: "white",
       borderBottom: "1px solid var(--rp-card-border)",
-      padding: "10px 40px",
-      display: "flex", alignItems: "center", gap: 32,
+      padding: "16px 40px",
+      display: "flex", alignItems: "center", justifyContent: "center", gap: 48,
     }}>
       {stats.map((s, i) => (
-        <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 11, color: "var(--rp-text-3)" }}>{s.label}</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: s.color, fontFamily: "var(--rp-mono)" }}>{s.value}</span>
+        <div key={i} style={{ 
+          display: "flex", alignItems: "center", gap: 10,
+          background: "var(--rp-bg)",
+          padding: "8px 18px",
+          borderRadius: "100px",
+          border: "1px solid var(--rp-card-border)",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.02)"
+        }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: "var(--rp-text-3)", textTransform: "uppercase", letterSpacing: "0.03em" }}>{s.label}</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: s.color, fontFamily: "var(--rp-mono)" }}>{s.value}</span>
         </div>
       ))}
     </div>
