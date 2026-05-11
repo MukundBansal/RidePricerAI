@@ -47,10 +47,12 @@ export function useMarketSocket({
     if (unmounted.current) return
 
     try {
+      console.log("Connecting to WebSocket:", url);
       const ws = new WebSocket(url)
       wsRef.current = ws
 
       ws.onopen = () => {
+        console.log("✅ WebSocket Connected to Hugging Face!");
         if (unmounted.current) { ws.close(); return }
         setConnected(true)
 
@@ -81,7 +83,8 @@ export function useMarketSocket({
         reconnectRef.current = setTimeout(() => connect(), reconnectDelay)
       }
 
-      ws.onerror = () => {
+      ws.onerror = (err) => {
+        console.error("❌ WebSocket Error:", err);
         ws.close()   // triggers onclose → reconnect
       }
     } catch {
