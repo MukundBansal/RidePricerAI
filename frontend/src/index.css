@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   font-family: 'DM Sans', sans-serif;
-  background: #f0f9ff;
+  background: #e0f2fe;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
 }
@@ -57,10 +57,10 @@ h3 {
   z-index: 0;
   background: linear-gradient(
     180deg,
-    #7dd3fc 0%,
-    #bae6fd 40%,
-    #e0f2fe 70%,
-    #f0f9ff 100%
+    #38bdf8 0%,
+    #7dd3fc 40%,
+    #bae6fd 70%,
+    #e0f2fe 100%
   );
 }
 
@@ -148,7 +148,7 @@ h3 {
   --rp-red:         #EF4444;
 
   /* Surfaces */
-  --rp-bg:          #f0f9ff;
+  --rp-bg:          #e0f2fe;
   --rp-card:        #FFFFFF;
   --rp-card-border: #E8ECF0;
   --rp-card-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
