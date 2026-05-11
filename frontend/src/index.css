@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   font-family: 'DM Sans', sans-serif;
-  background: #f8fafc;
+  background: #f0f9ff;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
 }
@@ -148,7 +148,7 @@ h3 {
   --rp-red:         #EF4444;
 
   /* Surfaces */
-  --rp-bg:          #F8FAFC;
+  --rp-bg:          #f0f9ff;
   --rp-card:        #FFFFFF;
   --rp-card-border: #E8ECF0;
   --rp-card-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
