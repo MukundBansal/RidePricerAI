@@ -87,12 +87,12 @@ export function ModelStatsBar({
 export function PageGrid({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
-      maxWidth: 1200,
+      width: "100%",
       margin: "0 auto",
-      padding: "32px 24px",
+      padding: "32px 40px",
       display: "grid",
       gridTemplateColumns: "380px 1fr",
-      gap: 24,
+      gap: 32,
       alignItems: "start",
     }}>
       {children}

@@ -114,7 +114,7 @@ export default function App() {
       <Navbar modelR2={97.8} />
       
       {/* Keeping the parallax background as an aesthetic element at the top */}
-      <div className="relative w-full h-[400px]">
+      <div className="relative w-full h-[calc(100vh-56px)]">
         <MountainVistaParallax 
           title={
             <>
