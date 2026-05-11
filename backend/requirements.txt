@@ -8,3 +8,7 @@ python-multipart
 pydantic
 requests
 python-dotenv
+shap
+httpx
+websockets
+lightgbm
